@@ -1,0 +1,104 @@
+<%- include partials/userHeader.ejs %>
+<h2 style="margin-top:30px;"><%=m%></h2>
+<div class="container">
+  <%if(teams.length==0){%>
+    <div class="alert alert-danger" role="alert">
+  Empty....As of now....
+ </div>
+  <%}%>
+
+
+<%teams.forEach(function(e,i){%>
+  <%if(i%3==0){%>
+    <div class="row">
+  <%}%>
+  <div class="col-lg-4">
+
+
+  <div class="card" style="width: 18rem;margin-bottom:10px;">
+ <div class="card-body">
+   <h5 class="card-title"><%=e.name%></h5>
+   <p class="card-text"><%=e.description%></p>
+   <%if(isTrue){%>
+
+        <a href="/team/<%=user%>/<%=e.id%>" class="btn btn-primary" name="button">Visit Team</a>
+
+      <a href="/leaveTeam/<%=user%>/<%=e.id%>" class="btn btn-outline-danger">Quit team</a>
+
+ <%}%>
+ <%if(isJs){%>
+   <form  action="/acceptJoinRequest/<%=user%>/<%=e.id%>" method="post">
+     <button type="submit" class="btn btn-outline-success" name="button">Accept Request</button>
+   </form>
+<%}%>
+<%if(!isTrue&&!isJs){%>
+  <form  action="/removeJoinRequest/<%=user%>/<%=e.id%>" method="post">
+    <button type="submit" class="btn btn-warning" name="button">Cancel Request</button>
+  </form>
+<%}%>
+ </div>
+</div>
+</div>
+<%if(i%3==2){%>
+  </div>
+<%}%>
+<%});%>
+
+
+
+
+
+</div>
+<%if(isTrue){%>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" style="margin-top:20px;">
+  Add Teams
+</button>
+<%}%>
+
+<%if(!isTrue&&!isJs){%>
+
+
+  <h2>Explore Teams</h2>
+    <%array.forEach(function(e){%>
+      <div class="card" style="width: 18rem;">
+     <div class="card-body">
+       <h5 class="card-title"><%=e.name%></h5>
+       <p class="card-text"><%=e.description%></p>
+       <form  action="/sendJoinRequest/<%=user%>/<%=e._id%>" method="post">
+         <button type="submit" class="btn btn-outline-success" name="button">Send request</button>
+       </form>
+     </div>
+    </div>
+
+    <%});%>
+
+
+
+
+
+
+<%}%>
+
+
+
+<%- include partials/footer.ejs %>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Choose options</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        You can either create your new team or send a request to an already existing team.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href="/newTeam/<%=user%>" class="btn btn-primary">New Team</a>
+        <a href="/user/yourJoinRequests/<%=user%>" class="btn btn-primary">Join an existing team</a>
+      </div>
+    </div>
+  </div>
+</div>

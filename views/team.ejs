@@ -1,0 +1,92 @@
+<%- include partials/teamHeader.ejs %>
+<%if(isDis){%>
+<div style="height:500px;overflow:scroll;border:1px solid black;margin-top:30px;">
+<ul class="list-group" >
+
+
+
+  <%discuss.forEach(function(e){%>
+    <li class="list-group-item"><strong><%=e.username%> :</strong> <%= e.message %></li>
+  <%});%>
+
+
+</ul>
+</div>
+<form action="/team/discussions/<%=user%>/<%=team%>" method="post">
+  <input type="text" class="form-control" name="message" style="margin-top:5px;" >
+  <button type="submit" class="btn btn-outline-primary" name="button" style="margin:5px">Send</button>
+</form>
+
+<%}%>
+
+<%if(isJs){%>
+  <%if(discuss.length==0){%>
+    <div class="alert alert-danger" role="alert">
+  Empty...As of now...
+</div>
+  <%}%>
+
+  <ul class="list-group">
+
+
+
+  <%discuss.forEach(function(e){%>
+    <li class="list-group-item"> <%=e.username%>
+    <form action="/teamJs/<%=e.username%>/<%=team%>/accept/<%=user%>" method="post">
+      <button type="submit" class="btn btn-outline-primary"name="button"> Accept</button>
+    </form>
+</li>
+  <%});%>
+
+  </ul>
+<%}%>
+<%if(!isDis&&!isJs){%>
+
+
+<div class="container">
+  <div class="row">
+
+  <div class="col-md-6 m-auto">
+
+  <h3 class="text-center display-4 my-4">Upload file:</h3>
+
+
+      <form class="" action="/upload/<%=user%>/<%=team%>" method="post" enctype="multipart/form-data">
+        <div class="custom-file mb-3">
+          <input type="file" name="file"id="file" class="custom-file-input">
+          <label for="file" class="custom-file-label">Choose file</label>
+           <button type="submit" name="button" class="btn btn-primary btn-block" style="margin-top:5px;">Upload</button>
+        </div>
+
+      </form>
+    </div>
+    </div>
+    </div>
+
+
+  <h2>Submitted forms</h2>
+    <%if(array.length==0){%>
+      <div class="alert alert-warning" role="alert">
+       There aren't any uploaded files......Yet...
+      </div>
+    <%}%>
+
+
+<%array.forEach(function(e){%>
+
+  <div class="alert alert-info" role="alert">
+  <%=e.oldFileName%> by <%=e.username%> <a href="/file/<%=e.fileName%>" target="_blank" class="alert-link">Preview</a>.
+</div>
+
+
+<%});%>
+
+
+
+
+
+
+<%}%>
+
+
+<%- include partials/footer.ejs %>

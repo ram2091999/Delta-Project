@@ -1,0 +1,40 @@
+<%- include partials/homeHeader.ejs %>
+<div class="row" style="margin-top:30px;">
+    <div class="col-6">
+      <h1>teamWork</h1>
+      <p>teamWork allows you and your team to come together and work on projects.Share PDFs,images,documents and much more!!Explore different teams and contribute to as many teams as you like!</p>
+
+    </div>
+    <div class="col-6">
+      <h1>Register</h1>
+      <%- include partials/messages.ejs %>
+      <form  action="/register" method="post">
+        <div class="form-group">
+      <label for="exampleInputEmail1">Name</label>
+       <input class="form-control" id="exampleInputEmail1"  name="name" placeholder="Enter name">
+    </div>
+    <div class="form-group">
+  <label for="exampleInputEmail1">Username</label>
+   <input class="form-control" id="exampleInputEmail1"  name="username" placeholder="username(Atleast 5 characters and no spaces)">
+</div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password(Atleast 5 characters)">
+
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Confirm Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" name="confirmPassword" placeholder="Confirm Password">
+
+  </div>
+
+  <button type="submit" class="btn btn-primary">Register</button>
+      </form>
+      <hr>
+        <a href="/auth/google" class="btn btn-outline-danger">Register with google</a>
+        <a href="/auth/facebook" class="btn btn-outline-primary">Register with Facebook</a>
+    </div>
+
+  </div>
+
+<%- include partials/footer.ejs %>
