@@ -537,11 +537,12 @@ app.post("/newTeam/:user",function(req,res){
         User.findByIdAndUpdate(team.members[0].id,{$push:{teams:doc._id}},function(err){
           if(err)
           console.log(err);
+          res.redirect("/user/"+req.params.user);
         });
 
       }
     });
-    res.redirect("/user/"+req.params.user);
+   
   }
 
 
